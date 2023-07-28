@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { LogLevel, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import helmet from 'helmet';
-import { PORT } from './config';
+import { PORT, HOST } from './config';
 
 async function bootstrap() {
   const isDev: boolean = process.env.NODE_ENV == 'development';
@@ -25,7 +25,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
 
-  await app.listen(PORT);
+  await app.listen(PORT, HOST);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
 
