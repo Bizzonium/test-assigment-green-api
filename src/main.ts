@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { LogLevel } from '@nestjs/common';
+import { LogLevel, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { PORT } from './config';
 
@@ -14,6 +14,7 @@ async function bootstrap() {
   }
 
   const app = await NestFactory.create(AppModule, { logger });
+  app.useGlobalPipes(new ValidationPipe());
   await app.listen(PORT);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
