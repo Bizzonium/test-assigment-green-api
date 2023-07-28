@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { LogLevel, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
+import helmet from 'helmet';
 import { PORT } from './config';
 
 async function bootstrap() {
@@ -14,6 +15,12 @@ async function bootstrap() {
   }
 
   const app = await NestFactory.create(AppModule, { logger });
+
+  app.use(helmet());
+  if (isDev) {
+    console.log('Running in dev, enabled CORS');
+    app.enableCors();
+  }
 
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
