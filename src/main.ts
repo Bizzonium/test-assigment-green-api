@@ -14,7 +14,10 @@ async function bootstrap() {
   }
 
   const app = await NestFactory.create(AppModule, { logger });
+
+  app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
+
   await app.listen(PORT);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
