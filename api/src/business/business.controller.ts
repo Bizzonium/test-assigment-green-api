@@ -1,6 +1,6 @@
-import { Controller, Get, Logger } from '@nestjs/common';
+import { Controller, Get, Logger, RequestTimeoutException } from '@nestjs/common';
 import { BusinessService } from './business.service';
-import { Observable, tap, timeout } from 'rxjs';
+import { Observable, TimeoutError, catchError, tap, throwError, timeout } from 'rxjs';
 
 @Controller('')
 export class BusinessController {
@@ -14,6 +14,12 @@ export class BusinessController {
 
     return result.pipe(
       timeout(10000),
+      catchError((err) => {
+        if (err instanceof TimeoutError) {
+          return throwError(() => new RequestTimeoutException());
+        }
+        return throwError(() => err);
+      }),
       tap((data) => {
         this.logger.log(`Received pong response`);
         this.logger.debug(`Recieved Payload: ${JSON.stringify(data)}`);
