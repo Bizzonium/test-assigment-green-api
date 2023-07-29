@@ -24,5 +24,12 @@
         "/*": "/__vscode-remote-uri__/*"
       }
     },
+  ],
+  "compounds": [
+    {
+      "name": "debug: all",
+      "configurations": ["api: debug", "processor: debug"],
+      "stopAll": true
+    }
   ]
 }
