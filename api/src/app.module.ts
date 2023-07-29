@@ -1,12 +1,9 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { RequestLoggingMiddleware } from './middlewares/request-logging.middleware';
+import { BusinessModule } from './business/business.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [BusinessModule],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {

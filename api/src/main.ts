@@ -1,8 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { LogLevel, ValidationPipe } from '@nestjs/common';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+
 import { AppModule } from './app.module';
 import helmet from 'helmet';
 import { PORT, HOST } from './config';
+import { amqpClientOptions } from './amqp/amqp-client.options';
 
 async function bootstrap() {
   const isDev: boolean = process.env.NODE_ENV == 'development';
@@ -15,6 +18,10 @@ async function bootstrap() {
   }
 
   const app = await NestFactory.create(AppModule, { logger });
+  // const microservice = app.connectMicroservice<MicroserviceOptions>({
+  //   transport: Transport.RMQ,
+  //   options: { ...amqpClientOptions },
+  // });
 
   app.use(helmet());
   if (isDev) {
@@ -25,6 +32,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
 
+  // await app.startAllMicroservices();
   await app.listen(PORT, HOST);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }

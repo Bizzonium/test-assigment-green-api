@@ -4,6 +4,9 @@ declare global {
       NODE_ENV: 'development' | 'production';
       PORT?: number;
       HOST?: string;
+
+      AMQP_URL: string;
+      AMQP_QUEUE: string;
     }
   }
 }
