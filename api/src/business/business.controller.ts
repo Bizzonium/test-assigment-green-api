@@ -1,6 +1,6 @@
 import { Controller, Get, Logger } from '@nestjs/common';
 import { BusinessService } from './business.service';
-import { Observable } from 'rxjs';
+import { Observable, tap, timeout } from 'rxjs';
 
 @Controller('')
 export class BusinessController {
@@ -12,13 +12,12 @@ export class BusinessController {
   getPing(): Observable<any> {
     const result = this.businessService.getPing();
 
-    result.subscribe({
-      next: (data) => {
+    return result.pipe(
+      timeout(10000),
+      tap((data) => {
         this.logger.log(`Received pong response`);
         this.logger.debug(`Recieved Payload: ${JSON.stringify(data)}`);
-      },
-      error: this.logger.error,
-    });
-    return result;
+      }),
+    );
   }
 }
