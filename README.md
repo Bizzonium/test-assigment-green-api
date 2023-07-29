@@ -23,11 +23,23 @@ HTTP запросов и опубликовать исходники проек�
 
 ## Инструкция по локальному развёртыванию проекта
 1. Запустите RabbitMQ с помощью Docker или systemd, или другим способом
-  ```
-  docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.10-management
-  ```
+   ```
+   docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.10-management
+   ```
 2. Склонируйте репозиторий
-   ```git clone git@github.com:Bizzonium/test-assigment-green-api.git```
-3. Установие
-3. `cd pnpm install`
-4. `pnpm `
+   ```
+   git clone git@github.com:Bizzonium/test-assigment-green-api.git
+   ```
+3. Перейдите в директорую
+   ```
+   cd test-assigment-green-api
+   ```
+4. Установите зависимости
+   ```
+   pnpm install -r
+   ```
+5. Запустите параллельно микросервисы api и processor в dev-режиме.
+   ```
+   pnpm start:dev
+   ```
+   Также можно запускать через debug (F5) в VS Code.
