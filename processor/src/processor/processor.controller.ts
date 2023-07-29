@@ -1,16 +1,14 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
+import { Ctx, MessagePattern, Payload, RmqContext } from '@nestjs/microservices';
 import { ProcessorService } from './processor.service';
-import { ClientProxy } from '@nestjs/microservices';
+import { GetPongResponse } from './dto/get-pong.dto';
 
 @Controller('business')
 export class ProcessorController {
-  constructor(
-    private readonly businessService: ProcessorService,
-    @Inject('PROCESSOR_SERVICE') private readonly client: ClientProxy,
-  ) {}
+  constructor(private readonly processorService: ProcessorService) {}
 
-  @Get('hello')
-  getHello(): string {
-    return 'Hello World!';
+  @MessagePattern('ping')
+  async getPong(@Payload() data: any, @Ctx() context: RmqContext): Promise<GetPongResponse> {
+    return await this.processorService.getPong({ data, context });
   }
 }

@@ -26,6 +26,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "amqp-connection-manager": "^4.1.14",
     "amqplib": "^0.10.3",
+    "class-validator": "^0.14.0",
     "helmet": "^7.0.0",
     "nest-shared": "^5.0.3",
     "reflect-metadata": "^0.1.13",
