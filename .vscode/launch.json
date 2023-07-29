@@ -14,5 +14,15 @@
         "/*": "/__vscode-remote-uri__/*"
       }
     },
+    {
+      "name": "processor: debug",
+      "type": "node-terminal",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/processor",
+      "command": "pnpm start:dev",
+      "sourceMapPathOverrides": {
+        "/*": "/__vscode-remote-uri__/*"
+      }
+    },
   ]
 }
