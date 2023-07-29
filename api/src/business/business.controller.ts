@@ -1,16 +1,13 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { BusinessService } from './business.service';
-import { ClientProxy } from '@nestjs/microservices';
+import { Observable } from 'rxjs';
 
-@Controller('business')
+@Controller('')
 export class BusinessController {
-  constructor(
-    private readonly businessService: BusinessService,
-    @Inject('API_SERVICE') private readonly client: ClientProxy,
-  ) {}
+  constructor(private readonly businessService: BusinessService) {}
 
-  @Get('hello')
-  getHello(): string {
-    return 'Hello World!';
+  @Get('ping')
+  getPing(): Observable<any> {
+    return this.businessService.getPing();
   }
 }
